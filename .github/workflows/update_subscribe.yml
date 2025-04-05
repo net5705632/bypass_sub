@@ -2,7 +2,7 @@ name: Update Subscribe
 
 on:
   schedule:
-    - cron: '0 0 * * *'  # 每天 UTC 时间 0 点自动运行
+    - cron: '0 * * * *'  # 关键修改点：每小时运行一次
   workflow_dispatch:     # 允许手动触发
 
 jobs:
