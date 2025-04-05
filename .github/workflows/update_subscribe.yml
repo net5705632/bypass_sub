@@ -8,12 +8,14 @@ on:
 jobs:
   update:
     runs-on: ubuntu-latest
+    permissions:  # 新增权限配置
+      contents: write  # 授予写入权限
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
       with:
-        persist-credentials: false
+        persist-credentials: true  # 改为 true 保留认证信息
         fetch-depth: 0
 
     - name: Set up Python
@@ -25,7 +27,7 @@ jobs:
       run: pip install requests
 
     - name: Run merge script
-      run: python merge_script.py  # 确保脚本在仓库中
+      run: python merge_script.py
 
     - name: Commit changes
       run: |
@@ -33,4 +35,4 @@ jobs:
         git config --global user.email "actions@github.com"
         git add bypass_subscribe.txt
         git commit -m "Auto-update subscription list"
-        git push
+        git push origin HEAD:main  # 明确推送目标分支
